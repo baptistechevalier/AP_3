@@ -17,7 +17,7 @@ public class Window extends JFrame {
         setTitle("Connexion");
         setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centre la fenêtre
+        setLocationRelativeTo(null);
         setResizable(false);
 
         // Création du panneau principal
@@ -30,7 +30,7 @@ public class Window extends JFrame {
         JLabel passwordLabel = new JLabel("Mot de passe:");
         passwordField = new JPasswordField();
         JButton loginButton = new JButton("Connexion");
-        messageLabel = new JLabel("", JLabel.CENTER); // Label pour afficher les messages
+        messageLabel = new JLabel("", JLabel.CENTER);
         messageLabel.setForeground(Color.RED);
 
         // Ajout des composants au panneau
@@ -38,10 +38,9 @@ public class Window extends JFrame {
         panel.add(userField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(new JLabel()); // Espace vide
+        panel.add(new JLabel());
         panel.add(loginButton);
 
-        // Ajout du panneau et du label des messages à la fenêtre
         add(panel, BorderLayout.CENTER);
         add(messageLabel, BorderLayout.SOUTH);
 
@@ -58,21 +57,22 @@ public class Window extends JFrame {
         });
     }
 
-    // Méthode pour gérer la connexion
     private void handleLogin() throws SQLException {
-        // Récupérer les données saisies par l'utilisateur
         String username = userField.getText();
         String password = new String(passwordField.getPassword());
 
         String message = loginController.verifyLogin(username, password);
+        int userId = loginController.getUserId();
 
-        // Affichage du message (succès ou erreur)
-        if (message.equals("Connexion réussie !")) {
+        if (message.equals("Connexion Réussie")) {
             messageLabel.setForeground(Color.GREEN);
+            messageLabel.setText("Connexion réussie !");
+            dispose(); // Ferme la fenêtre actuelle
+            new CodeVerification(userId).setVisible(true); // Ouvre la nouvelle fenêtre
         } else {
             messageLabel.setForeground(Color.RED);
+            messageLabel.setText(message);
         }
-        messageLabel.setText(message);
     }
 
     public static void main(String[] args) {
