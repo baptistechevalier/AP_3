@@ -8,14 +8,6 @@ public class Login {
         return userId;
     }
 
-    /**
-     * Vérifie les informations d'identification de l'utilisateur.
-     *
-     * @param username Nom d'utilisateur
-     * @param password Mot de passe en clair saisi par l'utilisateur
-     * @return Message résultat de la tentative de connexion
-     * @throws SQLException En cas d'erreur de communication avec la base de données
-     */
     public String verifyLogin(String username, String password) throws SQLException {
         String query = "SELECT id, password FROM user WHERE email = ?";
 
